@@ -1,0 +1,33 @@
+#! /usr/bin/perl
+#
+# last updated : 2015/05/02 12:08:23
+#
+# Usage : qdels Jobname [number of jobs to be deleted]
+#
+die "Usage : qdels Jobname\n" unless ($#ARGV <= 1);
+
+$Job = $ARGV[0];
+if ($#ARGV == 1) {
+    $Njobs = $ARGV[1];
+    $counter = 0;
+}
+
+$User = $ENV{'USER'};
+print "Delete $Job of $User\n";
+open(CMD, "qstat | sort -r |") || die $!;
+while ($line = <CMD>) {
+    chop $line;
+    ($jobid, $jobname, $username) = ($line =~ /^([0-9]+\.sdb) +([^ ]+) +([^ ]+) +/);
+    if ( ($jobname eq $Job) && ($username eq $User) ) {
+	$cmd = "qdel $jobid";
+	print $cmd, "\n";
+	system( $cmd );
+	sleep 1;
+	if ($Njobs) {
+	    $counter++;
+	    exit if ($counter >= $Njobs);
+	}
+    }
+}
+close CMD;
+

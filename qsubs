@@ -1,0 +1,37 @@
+#! /usr/bin/perl
+#
+# last updated : 2013/06/13 13:13:01
+#
+# Usage : qsubs N  script.sh [jobid]
+#           N : number of jobs
+#   script.sh : script name for jobs
+#       jobid : a job id followed by script.sh (*.sdb)
+
+die "Usage : qsubs N script.sh [jobid]\n" unless ($#ARGV >= 1);
+
+$nmax = $ARGV[0];
+$script = $ARGV[1];
+
+die "The first argument must be a number" unless ( $nmax =~ /^\d+$/ );
+
+if ($#ARGV == 2) {
+    $jobid = $ARGV[2];
+    die "Invalid job id $jobid\n" unless ($jobid =~ /\d+\.sdb$/);
+    $option = "-W depend=afterany:$jobid";
+} else {
+    $option = '';
+}
+for ( $n=1 ; $n <= $nmax ; $n++ ) {
+    $cmd = "qsub $option $script";
+    print $cmd, "\n";
+    open(CMD, "$cmd |") || die $!;
+    $jobid = <CMD>;
+    close CMD;
+    chop $jobid;
+    print "jobid = $jobid\n";
+    $option = "-W depend=afterany:$jobid";
+    sleep 1;
+}
+
+
+
