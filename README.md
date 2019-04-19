@@ -2,9 +2,7 @@
 
 Utilities for end-users of NAOJ CfCA.
 
-## Usage
-
-### cron.pl
+## cron.pl
 A cron like command. The calling sequence is following:  
 
     nohup cron.pl > log.cron 2>&1 &
