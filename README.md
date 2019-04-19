@@ -21,5 +21,3 @@ A command qsubs submits sequential jobs as follows:
 
 ## vpnconnect.sh, vpndiconnect.sh, vpnstat.sh
 Command line tools of VPN for connecting, disconnecting, showing status. The user ID and password are written in vpnconnect.sh
-
-## cfca_util
