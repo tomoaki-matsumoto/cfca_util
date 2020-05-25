@@ -7,7 +7,7 @@ A cron like command. The calling sequence is following:
 
     nohup cron.pl > log.cron 2>&1 &
 
-dot.crontab is a configuration file of cron.pl. This file is located on the home directory, ~/.crontab usually.
+dot.crontab is a sample of the configuration file for cron.pl. This file is located on the home directory, ~/.crontab usually.
 
 ## qsubs, qdels
 A command qsubs submits sequential jobs as follows:
