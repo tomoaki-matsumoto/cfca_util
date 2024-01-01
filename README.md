@@ -19,7 +19,7 @@ A command which submits sequential jobs as follows:
     jobid : a job id followed by script.sh (*.sdb)
 
 ## qdels
-A command which delets jobs as follows:
+A command which delets jobs. N jobs are deleted in order of newest to oldest. If N is omitted, all the jobs with jobname are deleted. The calling sequence is following: 
 
     qdels jobname [N]
 
